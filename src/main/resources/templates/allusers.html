@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-
 <head>
-
     <meta charset="UTF-8">
-    <title>AllUsers</title>
+    <title>Bootstrap Example</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             crossorigin="anonymous"></script>
@@ -17,25 +15,32 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <style>
+        .row {
+            min-height: 100vh; /* Задаем минимальную высоту равной 100% высоты окна просмотра */
+        }
+    </style>
+
+    <style>
+        .col-10.bg-light {
+            min-height: 100vh; /* Задаем минимальную высоту равной 100% высоты окна просмотра */
+        }
+    </style>
+
+    <style>
+        .rounded-table {
+            border-radius: 10px; /* Задаем радиус скругления */
+            overflow: hidden; /* Скрываем содержимое, выходящее за границы скругленных углов */
+        }
+    </style>
 
 </head>
 <body>
 <nav class="navbar navbar-dark bg-dark">
-    <p class="text-white bg-dark">
-        <td th:text="${user.getUsername}"></td>
-    </p>
-    <br>
-    <a class="nav-link active" href="logout">Logout</a>
-    <!-- Контент навигационной панели -->
+    <a class="navbar-brand" href="#" th:text="${user.getUsername}">Navbar</a>
+    <a class="btn btn-outline-light my-2 my-sm-0" href="logout" th:text="Logout"></a>
 </nav>
-
-<a th:href="@{/user}">user</a>
-<!--<a th:href="@{/admin}">admin</a>-->
-
-<!--<a th:href="@{/user}" style="display: block;">user</a>-->
-<!--<a th:href="@{/admin}" style="display: block;">admin</a>-->
-
 
 <div class="row">
     <div class="col-2">
@@ -46,187 +51,120 @@
                href="#list-profile" role="tab" aria-controls="profile">User</a>
         </div>
     </div>
-    <div class="col-8">
-        <div class="tab-content" id="nav-tabContent1">
-            <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
-                <!--                <div class="mx-auto" style="width: 1500px;">-->
-
-                <div class="mx-auto" style="width: 1400px;">
+    <div class="col-10 bg-light">
+        <div class="p-0 mb-0 bg-light text-dark">
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="list-home" role="tabpanel"
+                     aria-labelledby="list-home-list">
                     <br>
+                    <h1>Admin Panel</h1>
                     <br>
-                    <h1>Ведь я всего лишь апельсин</h1>
+                    <div class="card col-11">
+                        <ul class="nav nav-tabs rounded" id="myTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#allUsers" role="tab"
+                                   aria-controls="allUsers" aria-selected="true">All Users</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#addNewUser" role="tab"
+                                   aria-controls="addNewUser" aria-selected="false">new User</a>
+                            </li>
+                        </ul>
 
-                    <nav>
-                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home"
-                               role="tab"
-                               aria-controls="nav-home" aria-selected="true">User Table</a>
-                            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile"
-                               role="tab"
-                               aria-controls="nav-profile" aria-selected="false">New User</a>
-                        </div>
-                    </nav>
-                    <div class="tab-content" id="nav-tabContent">
-                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
-                             aria-labelledby="nav-home-tab">
-                            <table class="table table-striped">
-                                <div class="mx-auto" style="width: 1300px;">
-
-                                    <h3>Flex Panel </h3>
-
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="allUsers" role="tabpanel"
+                                 aria-labelledby="home-tab">
+                                <table class="table table-striped rounded-table col-md-12">
                                     <thead>
+                                    <tr class="active">
+                                        <th scope="col">All Users</th>
+                                    </tr>
                                     <tr>
                                         <th scope="col">#</th>
                                         <th scope="col">Name</th>
                                         <th scope="col">Surname</th>
                                         <th scope="col">Salary</th>
                                         <th scope="col">Role</th>
-                                        <th scope="col">Edit</th>
-                                        <th scope="col">DELETE</th>
                                     </tr>
                                     </thead>
                                     <tr th:each="user : ${allusers}">
-                                        <td th:text="${user.id}">Null</td>
-                                        <td th:text="${user.username}">Null</td>
-                                        <td th:text="${user.surname}">Null</td>
-                                        <td th:text="${user.salary}">Null</td>
-                                        <td th:text="${user.roles}">Null</td>
+                                        <td th:text="${user.id}"></td>
+                                        <td th:text="${user.username}"></td>
+                                        <td th:text="${user.surname}"></td>
+                                        <td th:text="${user.salary}"></td>
+                                        <td th:text="${user.roles}"></td>
                                         <td>
-                                            <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                                                    th:data-bs-target="${'#modalEdit'+ user.getId()}">Edit
+                                            <button type="button" class="btn btn-success" data-toggle="modal"
+                                                    th:data-target="${'#modalEdit'+ user.getId()}">Edit
                                             </button>
                                         </td>
-                                        <td>
-                                            <button type="button" class="btn btn-danger">
-                                                <a th:href="@{/admin/updateInfo(usrId=${user.id})}">Edit</a>
-                                            </button>
-                                        </td>
-
-                                        <div class="modal fade" th:id="${'modalEdit'+user.getId()}">
-                                            <div class="modal-dialog modal-dialog-centered">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <form id="formEdit" th:method="PATCH"
-                                                              th:action="@{admin/addOrUpdate/{id} (id=${user.id})}"
-                                                              th:object="${user}">
-
-
-                                                            <h5 class="modal-title" id="exampleModalLabel">Modal
-                                                                title</h5>
-                                                            <button type="button" class="close" data-dismiss="modal"
-                                                                    aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </form>
-                                                    </div>
-                                                    <div class="modal-body">
-
-                                                        Тут могла быть ваша реклама
-
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
-                                                                data-dismiss="modal">Close
-                                                        </button>
-                                                        <button type="button" class="btn btn-primary">Save changes
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-<!--                                        Модальная кнопка DELETE-->
                                         <td>
                                             <button type="button" class="btn btn-danger">
                                                 <a th:href="@{/admin/deleteUser(usrId=${user.id})}">Delete</a>
                                             </button>
                                         </td>
 
-                                        <!--                                        123412341234123412341234123412342-->
-
-                                        <!-- Modal -->
-
-
-
-                                        <!--                                        123412341234234653421341234123441234-->
-
-
-                                        <!--                                            <button type="button" class="btn btn-info">-->
-                                        <!--                                                <a th:href="@{/admin/updateInfo (usrId=${user.id})}">Edit</a>-->
-                                        <!--                                            </button>-->
-
-                                        <!--                                            <button type="button" class="btn btn-info" data-bs-toggle="modal"-->
-                                        <!--                                                    data-bs-target="#exampleModal">-->
-                                        <!--                                                Edit-->
-                                        <!--                                            </button>-->
-
-
                                     </tr>
-                                </div>
-                            </table>
+                                </table>
+                            </div>
+                            <div class="tab-pane fade" id="addNewUser" role="tabpanel" aria-labelledby="profile-tab">
+<!--                              Добавление Юзера-->
+                                <thead>
+                                <tr class="active">
+                                    <h4> Add new User</h4>
+                                </tr>
+                                </thead>
+                                <div id="formContainer"></div>
+
+                                <script>
+                                    $(document).ready(function() {
+                                        $.ajax({
+                                            url: 'admin/addnewuser',
+                                            success: function(data) {
+                                                $('#formContainer').html(data);
+                                            }
+                                        });
+                                    });
+                                </script>
+
+                            </div>
                         </div>
 
-                        <div class="tab-pane fade" id="nav-profile" role="tabpanel"
-                             aria-labelledby="nav-profile-tab">
-                            <div id="other-content"></div>
-                        </div>
-                        <script>
-                            $(document).ready(function () {
-                                $("#other-content").load("admin/addnewuser");
-                            });
-                        </script>
                     </div>
-                </div>
-            </div>
+                    <div class="card col-11">
+                        <div class="tab-pane fade" id="list-profile" role="tabpanel"
+                             aria-labelledby="list-profile-list">
 
-            <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
-                <div class="mx-auto" style="width: 1400px;">
-                    <br>
-                    <br>
-                    <h1>Вас миллион, а я один</h1>
-
-                    <nav>
-                        <div class="nav nav-tabs" id="nav-tab1" role="tablist">
-                            <a class="nav-item nav-link active" id="nav-home-tab1" data-toggle="tab" href="#nav-home"
-                               role="tab"
-                               aria-controls="nav-home" aria-selected="true">User-info</a>
-                        </div>
-                    </nav>
-                    <div class="tab-content" id="nav-tabContent2">
-                        <div class="tab-pane fade show active" id="nav-home2" role="tabpanel"
-                             aria-labelledby="nav-home-tab">
-                            <table class="table table-striped">
-                                <div class="mx-auto" style="width: 1300px;">
-                                    <h3>Flex Panel </h3>
-
-                                    <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Surname</th>
-                                        <th scope="col">Salary</th>
-                                        <th scope="col">Role</th>
-                                    </tr>
-                                    </thead>
+                            <table class="table table-striped rounded-table col-md-12">
+                                <thead>
+                                <tr class="active">
+                                    <th scope="col">About User</th>
+                                </tr>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Surname</th>
+                                    <th scope="col">Salary</th>
+                                    <th scope="col">Role</th>
+                                </tr>
+                                </thead>
+                                <tr>
                                     <td th:text="${user.id}"></td>
                                     <td th:text="${user.username}"></td>
                                     <td th:text="${user.surname}"></td>
                                     <td th:text="${user.salary}"></td>
                                     <td th:text="${user.roles}"></td>
-
-                                </div>
+                                </tr>
                             </table>
+
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>
-
-
 </html>

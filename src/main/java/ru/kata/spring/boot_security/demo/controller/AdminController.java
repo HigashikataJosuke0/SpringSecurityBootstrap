@@ -38,6 +38,8 @@ public class AdminController {
         String user = principal.getName();
         model.addAttribute("user", userRepository.findByUsername(principal.getName()));
         model.addAttribute("allusers", userServiceFind.allUsers());
+        List<Role> roles = roleRepository.findAll();
+        model.addAttribute("allRoles", roles);
         return "allusers";
     }
 

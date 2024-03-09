@@ -19,8 +19,27 @@
             crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+    <style>
+        .row {
+            min-height: 100vh; /* Задаем минимальную высоту равной 100% высоты окна просмотра */
+        }
+    </style>
+
+    <style>
+        .col-10.bg-light {
+            min-height: 100vh; /* Задаем минимальную высоту равной 100% высоты окна просмотра */
+        }
+    </style>
 </head>
+
+
 <body>
+<style>
+    .rounded-table {
+        border-radius: 10px;
+        overflow: hidden;
+    }
+</style>
 <nav class="navbar navbar-dark bg-dark">
     <p class="text-white bg-dark">
         <td th:text="${user.getUsername}"></td>
@@ -39,88 +58,54 @@
 <a th:href="@{/user}" style="display: block;">user</a>
 <a th:href="@{/admin}" style="display: block;">admin</a>
 
-<span class="border"></span>
-<span class="border-top"></span>
-<span class="border-right"></span>
-<span class="border-bottom"></span>
-<span class="border-left"></span>
-
-
 <div class="row">
     <div class="col-2">
         <div class="list-group" id="list-tab" role="tablist">
-            <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list"
-               href="#list-profile" role="tab" aria-controls="profile">User</a>
+            <a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list"
+               href="#user-profile" role="tab" aria-controls="home">User</a>
         </div>
     </div>
-    <div class="col-8">
-        <div class="tab-content" id="nav-tabContent1">
-            <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
-
-                <nav>
-                    <div>
-                        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile"
-                           role="tab"
-                           aria-controls="nav-profile" aria-selected="false"></a>
-                    </div>
-
-                </nav>
-                <div class="tab-content" id="nav-tabContent">
-                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
-                         aria-labelledby="nav-home-tab">
-                        <div th:if="${user != null}">
-                            <!-- Ваш код, использующий user.id -->
-
-                            <table class="table table-striped">
-
-                                <h1>Вас миллион, а я один</h1>
-                                <nav>
-                                    <div class="nav nav-tabs" id="nav-tab1" role="tablist">
-                                        <a class="nav-item nav-link active" id="nav-home-tab1" data-toggle="tab"
-                                           href="#nav-home"
-                                           role="tab"
-                                           aria-controls="nav-home" aria-selected="true">User-info</a>
-                                    </div>
-                                </nav>
-                                <div class="tab-content" id="nav-tabContent2">
-                                    <div class="tab-pane fade show active" id="nav-home2" role="tabpanel"
-                                         aria-labelledby="nav-home-tab">
-                                        <table class="table table-striped">
-                                            <div class="mx-auto" style="width: 1300px;">
-                                                <h3>Flex Panel </h3>
-
-                                                <thead>
-                                                <tr>
-                                                    <th scope="col">#</th>
-                                                    <th scope="col">Name</th>
-                                                    <th scope="col">Surname</th>
-                                                    <th scope="col">Salary</th>
-                                                    <th scope="col">Role</th>
-                                                </tr>
-                                                </thead>
-                                                <tr>
-                                                    <td th:text="${user.id}"></td>
-                                                    <td th:text="${user.username}"></td>
-                                                    <td th:text="${user.surname}"></td>
-                                                    <td th:text="${user.salary}"></td>
-                                                    <td th:text="${user.roles}"></td>
-
-                                                </tr>
-
-                                            </div>
-                                        </table>
-                                    </div>
-                                </div>
-                            </table>
+    <div class="col-10 bg-light">
+        <div class="p-0 mb-0 bg-light text-dark">
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade" id="user-profile" role="tabpanel"
+                     aria-labelledby="list-home-list">
+                    <br>
+                    <h1>User Panel</h1>
+                    <br>
+                    <div class="card col-11">
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="allUsers" role="tabpanel"
+                                 aria-labelledby="home-tab">
+                                <table class="table table-striped rounded-table col-md-12">
+                                    <thead>
+                                    <tr class="active">
+                                        <th scope="col">About User</th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Surname</th>
+                                        <th scope="col">Salary</th>
+                                        <th scope="col">Role</th>
+                                    </tr>
+                                    </thead>
+                                    <tr>
+                                        <td th:text="${user.id}"></td>
+                                        <td th:text="${user.username}"></td>
+                                        <td th:text="${user.surname}"></td>
+                                        <td th:text="${user.salary}"></td>
+                                        <td th:text="${user.roles}"></td>
+                                    </tr>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
-
 </body>
 
 </html>
