@@ -36,7 +36,7 @@ public class AdminController {
     @GetMapping
     public String getAllUsers(ModelMap model, Principal principal) {
         String user = principal.getName();
-        model.addAttribute("user", userRepository.findByUsername(principal.getName()));
+        model.addAttribute("user", userRepository.findByUsername(user));
         model.addAttribute("allusers", userServiceFind.allUsers());
         List<Role> roles = roleRepository.findAll();
         model.addAttribute("allRoles", roles);
@@ -52,7 +52,7 @@ public class AdminController {
     }
 
     @PostMapping("saveUser")
-    public String saveUser(ModelMap modelMap, @Valid User user, BindingResult bindingResult) {
+    public String saveUser(ModelMap modelMap, @Valid @ModelAttribute("user") User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             modelMap.addAttribute("user", user);
             List<Role> roles = roleRepository.findAll();
@@ -60,24 +60,9 @@ public class AdminController {
 
             return "redirect:/admin/addnewuser";
         }
-
         userServiceFind.save(user);
         return "redirect:/admin";
     }
-
-//    @PatchMapping("/saveUser/{id}")
-//    public String add(@PathVariable("id") Long id, @Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
-//        if (bindingResult.hasErrors()) {
-//            List<Role> roles = (List<Role>) roleRepository.findAll();
-//            model.addAttribute("allRoles", roles);
-//            return "addnewuser";
-//        } else {
-//            userServiceFind.save(user,id);
-//            return "redirect:/admin";
-//        }
-//
-//    }
-
 
     @GetMapping("updateInfo")
     public String updateUser(@RequestParam("usrId") long id, ModelMap model) {
@@ -87,6 +72,20 @@ public class AdminController {
         model.addAttribute("allRoles", roles);
         return "addnewuser";
     }
+
+
+    @PatchMapping("/updateInfo/{id}")
+    public String add(@PathVariable("id") Long id, @Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            List<Role> roles = (List<Role>) roleRepository.findAll();
+            model.addAttribute("allRoles", roles);
+            return "addnewuser";
+        } else {
+            userServiceFind.update(id, user);
+            return "redirect:/admin";
+        }
+    }
+
 
     @GetMapping("deleteUser")
     public String deleteUser(@RequestParam("usrId") long id) {

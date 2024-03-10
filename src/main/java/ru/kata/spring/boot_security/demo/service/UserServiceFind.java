@@ -66,8 +66,14 @@ public class UserServiceFind {
         userRepository.save(user);
     }
 
+    @Transactional
+    public void update(long id, User user) {
+        user.setId(id);
+        userRepository.save(user);
+    }
+
     public void deleteUser(Long userId) {
-      userRepository.deleteById(userId);
+        userRepository.deleteById(userId);
     }
 
     public List<User> usergtList(Long idMin) {

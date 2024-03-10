@@ -96,9 +96,12 @@
                                         <th scope="col">Surname</th>
                                         <th scope="col">Salary</th>
                                         <th scope="col">Role</th>
+                                        <th scope="col">Edit</th>
+                                        <th scope="col">Delete</th>
                                     </tr>
                                     </thead>
                                     <tr th:each="user : ${allusers}">
+
                                         <td th:text="${user.id}"></td>
                                         <td th:text="${user.username}"></td>
                                         <td th:text="${user.surname}"></td>
@@ -107,11 +110,12 @@
                                         <td>
                                             <!--               Кнопка модального окна Update-->
                                             <button type="button" class="btn btn-success" data-toggle="modal"
-                                                    data-target="#modalEdit1">Edit
+                                                    th:attr="data-target='#modalEdit' + ${user.id}">Edit
                                             </button>
                                         </td>
-                                        <!--                                            Наполнение модального окна-->
-                                        <div class="modal fade" id="modalEdit1" tabindex="-1" role="dialog"
+                                        <!--         Наполнение модального окна-->
+                                        <div class="modal fade" th:attr="id='modalEdit' + ${user.id}" tabindex="-1"
+                                             role="dialog"
                                              aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
@@ -125,9 +129,10 @@
                                                     <div class="modal-body">
                                                         <!-- Здесь будет форма для редактирования пользователя -->
                                                         <div class="modal-body modal-body-centered">
-                                                            <form action="#" th:action="@{/admin/saveUser}"
-                                                                  th:object="${user}" method="post">
-                                                                <input type="hidden" th:field="*{id}"/>
+                                                            <form id="formEdit" th:method="PATCH"
+                                                                  th:action="@{admin/updateInfo/{id} (id=${user.id})}"
+                                                                  th:object="${user}">
+                                                                <!--                                                                <input type="hidden" th:field="*{id}"/>-->
 
                                                                 <div class="form-group col-md-8 text-center">
                                                                     <label for="username">Username:</label>
@@ -195,7 +200,6 @@
                                     </tr>
                                 </table>
                             </div>
-                            <!--                            </div>-->
                             <div class="tab-pane fade" id="addNewUser" role="tabpanel"
                                  aria-labelledby="profile-tab">
                                 <!--           Содержимое вкладки New User Добавление Юзера-->
@@ -224,9 +228,8 @@
                     </div>
                 </div>
                 <!--                Это закрывающий div class tab pane-->
-
-
                 <!--                            <div class="card col-11">-->
+
                 <div class="tab-pane fade col-11" id="user-table" role="tabpanel" aria-labelledby="list-profile-list">
                     <h1>User Panel</h1>
                     <table class="table table-striped rounded-table col-md-12">
