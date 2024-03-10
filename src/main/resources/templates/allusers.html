@@ -84,7 +84,7 @@
                             <div class="tab-pane fade show active" id="allUsers" role="tabpanel"
                                  aria-labelledby="home-tab">
 
-                                <!--                                Содержимое вкладки All Users-->
+                                <!--                      Содержимое вкладки All Users-->
                                 <table class="table table-striped rounded-table col-md-12">
                                     <thead>
                                     <tr class="active">
@@ -113,6 +113,7 @@
                                                     th:attr="data-target='#modalEdit' + ${user.id}">Edit
                                             </button>
                                         </td>
+
                                         <!--         Наполнение модального окна-->
                                         <div class="modal fade" th:attr="id='modalEdit' + ${user.id}" tabindex="-1"
                                              role="dialog"
@@ -120,7 +121,8 @@
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Edit User</h5>
+                                                        <h5 class="modal-title" id="exampleModalLabel">Edit
+                                                            User</h5>
                                                         <button type="button" class="close" data-dismiss="modal"
                                                                 aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
@@ -132,53 +134,64 @@
                                                             <form id="formEdit" th:method="PATCH"
                                                                   th:action="@{admin/updateInfo/{id} (id=${user.id})}"
                                                                   th:object="${user}">
-                                                                <!--                                                                <input type="hidden" th:field="*{id}"/>-->
 
                                                                 <div class="form-group col-md-8 text-center">
+
+
+                                                                    <label for="username">ID:</label>
+                                                                    <input type="text" class="form-control"
+                                                                           th:field="*{id}"
+                                                                           readonly="readonly"/>
+
+
                                                                     <label for="username">Username:</label>
                                                                     <input type="text" class="form-control"
                                                                            id="username"
                                                                            th:field="*{username}"
                                                                            placeholder="Enter username">
-                                                                </div>
 
-                                                                <div class="form-group col-md-8 text-center">
+
                                                                     <label for="surname">Surname:</label>
-                                                                    <input type="text" class="form-control" id="surname"
+                                                                    <input type="text" class="form-control"
+                                                                           id="surname"
                                                                            th:field="*{surname}"
                                                                            placeholder="Enter surname">
-                                                                </div>
 
-                                                                <div class="form-group col-md-8 text-center">
+
                                                                     <label for="salary">Salary:</label>
                                                                     <input type="number" class="form-control"
                                                                            id="salary"
                                                                            th:field="*{salary}"
                                                                            placeholder="Enter salary">
-                                                                </div>
 
-                                                                <div class="form-group col-md-8 text-center">
+
                                                                     <label for="password">Password:</label>
-                                                                    <input type="password" class="form-control"
-                                                                           id="password" th:field="*{password}"
+                                                                    <input type="password"
+                                                                           class="form-control"
+                                                                           id="password"
+                                                                           th:field="*{password}"
                                                                            placeholder="Enter password">
-                                                                </div>
 
-                                                                <div class="form-group col-md-8 text-center">
+
                                                                     <label for="roles">Roles:</label>
-                                                                    <select class="form-control" id="roles"
-                                                                            th:field="*{roles}" multiple>
+                                                                    <select class="form-control"
+                                                                            id="roles"
+                                                                            th:field="*{roles}"
+                                                                            multiple>
                                                                         <option th:each="role : ${allRoles}"
                                                                                 th:value="${role.id}"
                                                                                 th:text="${role.username}"></option>
                                                                     </select>
                                                                 </div>
                                                                 <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary"
+                                                                    <button type="button"
+                                                                            class="btn btn-secondary"
                                                                             data-dismiss="modal">Close
                                                                     </button>
                                                                     <button
-                                                                            type="submit" class="btn btn-primary">Update
+                                                                            type="submit"
+                                                                            class="btn btn-primary">
+                                                                        Update
                                                                     </button>
                                                                 </div>
 
@@ -189,6 +202,7 @@
                                                 </div>
                                             </div>
                                         </div>
+
                                         <!--                                        Конец модального окна-->
 
                                         <td>
@@ -228,8 +242,7 @@
                     </div>
                 </div>
                 <!--                Это закрывающий div class tab pane-->
-                <!--                            <div class="card col-11">-->
-
+                <!--                Это панель Юзера -->
                 <div class="tab-pane fade col-11" id="user-table" role="tabpanel" aria-labelledby="list-profile-list">
                     <h1>User Panel</h1>
                     <table class="table table-striped rounded-table col-md-12">

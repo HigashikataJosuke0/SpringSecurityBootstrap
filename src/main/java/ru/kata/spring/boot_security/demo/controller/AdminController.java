@@ -64,14 +64,14 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @GetMapping("updateInfo")
-    public String updateUser(@RequestParam("usrId") long id, ModelMap model) {
-        User user = userServiceFind.findUserById(id);
-        model.addAttribute("user", user);
-        List<Role> roles = roleRepository.findAll();
-        model.addAttribute("allRoles", roles);
-        return "addnewuser";
-    }
+//    @GetMapping("updateInfo")
+//    public String updateUser(@RequestParam("usrId") long id, ModelMap model) {
+//        User user = userServiceFind.findUserById(id);
+//        model.addAttribute("user", user);
+//        List<Role> roles = roleRepository.findAll();
+//        model.addAttribute("allRoles", roles);
+//        return "addnewuser";
+//    }
 
 
     @PatchMapping("/updateInfo/{id}")
