@@ -65,6 +65,19 @@ public class AdminController {
         return "redirect:/admin";
     }
 
+//    @PatchMapping("/saveUser/{id}")
+//    public String add(@PathVariable("id") Long id, @Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
+//        if (bindingResult.hasErrors()) {
+//            List<Role> roles = (List<Role>) roleRepository.findAll();
+//            model.addAttribute("allRoles", roles);
+//            return "addnewuser";
+//        } else {
+//            userServiceFind.save(user,id);
+//            return "redirect:/admin";
+//        }
+//
+//    }
+
 
     @GetMapping("updateInfo")
     public String updateUser(@RequestParam("usrId") long id, ModelMap model) {

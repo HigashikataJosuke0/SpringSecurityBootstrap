@@ -34,6 +34,15 @@
             overflow: hidden; /* Скрываем содержимое, выходящее за границы скругленных углов */
         }
     </style>
+    <style>
+        .modal-body-centered {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%; /* Устанавливаем высоту, чтобы Flexbox мог корректно центрировать содержимое */
+        }
+    </style>
 
 </head>
 <body>
@@ -74,6 +83,8 @@
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="allUsers" role="tabpanel"
                                  aria-labelledby="home-tab">
+
+                                <!--                                Содержимое вкладки All Users-->
                                 <table class="table table-striped rounded-table col-md-12">
                                     <thead>
                                     <tr class="active">
@@ -94,10 +105,87 @@
                                         <td th:text="${user.salary}"></td>
                                         <td th:text="${user.roles}"></td>
                                         <td>
+                                            <!--               Кнопка модального окна Update-->
                                             <button type="button" class="btn btn-success" data-toggle="modal"
-                                                    th:data-target="${'#modalEdit'+ user.getId()}">Edit
+                                                    data-target="#modalEdit1">Edit
                                             </button>
                                         </td>
+                                        <!--                                            Наполнение модального окна-->
+                                        <div class="modal fade" id="modalEdit1" tabindex="-1" role="dialog"
+                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Edit User</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <!-- Здесь будет форма для редактирования пользователя -->
+                                                        <div class="modal-body modal-body-centered">
+                                                            <form action="#" th:action="@{/admin/saveUser}"
+                                                                  th:object="${user}" method="post">
+                                                                <input type="hidden" th:field="*{id}"/>
+
+                                                                <div class="form-group col-md-8 text-center">
+                                                                    <label for="username">Username:</label>
+                                                                    <input type="text" class="form-control"
+                                                                           id="username"
+                                                                           th:field="*{username}"
+                                                                           placeholder="Enter username">
+                                                                </div>
+
+                                                                <div class="form-group col-md-8 text-center">
+                                                                    <label for="surname">Surname:</label>
+                                                                    <input type="text" class="form-control" id="surname"
+                                                                           th:field="*{surname}"
+                                                                           placeholder="Enter surname">
+                                                                </div>
+
+                                                                <div class="form-group col-md-8 text-center">
+                                                                    <label for="salary">Salary:</label>
+                                                                    <input type="number" class="form-control"
+                                                                           id="salary"
+                                                                           th:field="*{salary}"
+                                                                           placeholder="Enter salary">
+                                                                </div>
+
+                                                                <div class="form-group col-md-8 text-center">
+                                                                    <label for="password">Password:</label>
+                                                                    <input type="password" class="form-control"
+                                                                           id="password" th:field="*{password}"
+                                                                           placeholder="Enter password">
+                                                                </div>
+
+                                                                <div class="form-group col-md-8 text-center">
+                                                                    <label for="roles">Roles:</label>
+                                                                    <select class="form-control" id="roles"
+                                                                            th:field="*{roles}" multiple>
+                                                                        <option th:each="role : ${allRoles}"
+                                                                                th:value="${role.id}"
+                                                                                th:text="${role.username}"></option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary"
+                                                                            data-dismiss="modal">Close
+                                                                    </button>
+                                                                    <button
+                                                                            type="submit" class="btn btn-primary">Update
+                                                                    </button>
+                                                                </div>
+
+                                                            </form>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--                                        Конец модального окна-->
+
                                         <td>
                                             <button type="button" class="btn btn-danger">
                                                 <a th:href="@{/admin/deleteUser(usrId=${user.id})}">Delete</a>
@@ -106,61 +194,63 @@
 
                                     </tr>
                                 </table>
-                                <!--                            </div>-->
-                                <div class="tab-pane fade" id="addNewUser" role="tabpanel"
-                                     aria-labelledby="profile-tab">
-                                    <!--                              Добавление Юзера-->
-                                    <thead>
-                                    <tr class="active">
-                                        <h4> Add new User</h4>
-                                    </tr>
-                                    </thead>
-                                    <div id="formContainer"></div>
-                                    <div>
-                                        <script>
-                                            $(document).ready(function () {
-                                                $.ajax({
-                                                    url: 'admin/addnewuser',
-                                                    success: function (data) {
-                                                        $('#formContainer').html(data);
-                                                    }
-                                                });
+                            </div>
+                            <!--                            </div>-->
+                            <div class="tab-pane fade" id="addNewUser" role="tabpanel"
+                                 aria-labelledby="profile-tab">
+                                <!--           Содержимое вкладки New User Добавление Юзера-->
+                                <thead>
+                                <tr class="active">
+                                    <h4> Add new User</h4>
+                                </tr>
+                                </thead>
+                                <div id="formContainer"></div>
+                                <div>
+                                    <script>
+                                        $(document).ready(function () {
+                                            $.ajax({
+                                                url: 'admin/addnewuser',
+                                                success: function (data) {
+                                                    $('#formContainer').html(data);
+                                                }
                                             });
-                                        </script>
+                                        });
+                                    </script>
 
-                                    </div>
-                                </div>
-
-                                <div class="card col-11">
-                                    <div class="tab-pane fade" id="user-table" role="tabpanel"
-                                         aria-labelledby="list-profile-list">
-                                        <table class="table table-striped rounded-table col-md-12">
-                                            <thead>
-                                            <tr class="active">
-                                                <th scope="col">About User</th>
-                                            </tr>
-                                            <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">Name</th>
-                                                <th scope="col">Surname</th>
-                                                <th scope="col">Salary</th>
-                                                <th scope="col">Role</th>
-                                            </tr>
-                                            </thead>
-                                            <tr>
-                                                <td th:text="${user.id}"></td>
-                                                <td th:text="${user.username}"></td>
-                                                <td th:text="${user.surname}"></td>
-                                                <td th:text="${user.salary}"></td>
-                                                <td th:text="${user.roles}"></td>
-                                            </tr>
-                                        </table>
-
-                                    </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
+                </div>
+                <!--                Это закрывающий div class tab pane-->
+
+
+                <!--                            <div class="card col-11">-->
+                <div class="tab-pane fade col-11" id="user-table" role="tabpanel" aria-labelledby="list-profile-list">
+                    <h1>User Panel</h1>
+                    <table class="table table-striped rounded-table col-md-12">
+                        <thead>
+                        <tr class="active">
+                            <th scope="col">About User</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Surname</th>
+                            <th scope="col">Salary</th>
+                            <th scope="col">Role</th>
+                        </tr>
+                        </thead>
+                        <tr>
+                            <td th:text="${user.id}"></td>
+                            <td th:text="${user.username}"></td>
+                            <td th:text="${user.surname}"></td>
+                            <td th:text="${user.salary}"></td>
+                            <td th:text="${user.roles}"></td>
+                        </tr>
+                    </table>
+
                 </div>
             </div>
         </div>
@@ -168,6 +258,6 @@
 </div>
 
 
-                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>
 </html>
