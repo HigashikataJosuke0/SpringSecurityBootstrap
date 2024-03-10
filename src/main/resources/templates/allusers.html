@@ -144,24 +144,24 @@
                                                                            readonly="readonly"/>
 
 
-                                                                    <label for="username">Username:</label>
+                                                                    <label for="username">Username</label>
                                                                     <input type="text" class="form-control"
                                                                            id="username"
-                                                                           th:field="*{username}"
+                                                                           name="username" th:value="${user.username}"
                                                                            placeholder="Enter username">
 
 
                                                                     <label for="surname">Surname:</label>
-                                                                    <input type="text" class="form-control"
-                                                                           id="surname"
-                                                                           th:field="*{surname}"
+                                                                    <input type="text" class="form-control" id="surname"
+                                                                           name="surname"
+                                                                           th:value="${user.surname}"
                                                                            placeholder="Enter surname">
 
 
                                                                     <label for="salary">Salary:</label>
                                                                     <input type="number" class="form-control"
-                                                                           id="salary"
-                                                                           th:field="*{salary}"
+                                                                           id="salary" name="salary"
+                                                                           th:value="${user.salary}"
                                                                            placeholder="Enter salary">
 
 
@@ -169,7 +169,7 @@
                                                                     <input type="password"
                                                                            class="form-control"
                                                                            id="password"
-                                                                           th:field="*{password}"
+                                                                           th:field="${user.password}"
                                                                            placeholder="Enter password">
 
 

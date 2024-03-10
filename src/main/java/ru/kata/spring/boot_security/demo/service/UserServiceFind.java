@@ -69,6 +69,7 @@ public class UserServiceFind {
     @Transactional
     public void update(long id, User user) {
         user.setId(id);
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
 
