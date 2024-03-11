@@ -15,7 +15,6 @@ import ru.kata.spring.boot_security.demo.service.UserServiceFind;
 
 import javax.validation.Valid;
 import java.security.Principal;
-import java.util.Collections;
 import java.util.List;
 
 
@@ -63,16 +62,6 @@ public class AdminController {
         userServiceFind.save(user);
         return "redirect:/admin";
     }
-
-//    @GetMapping("updateInfo")
-//    public String updateUser(@RequestParam("usrId") long id, ModelMap model) {
-//        User user = userServiceFind.findUserById(id);
-//        model.addAttribute("user", user);
-//        List<Role> roles = roleRepository.findAll();
-//        model.addAttribute("allRoles", roles);
-//        return "addnewuser";
-//    }
-
 
     @PatchMapping("/updateInfo/{id}")
     public String add(@PathVariable("id") Long id, @Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
